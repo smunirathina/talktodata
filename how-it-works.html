@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How it Works — Talking 2 Data</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero {
+  background: var(--off); border-bottom: 1px solid var(--border);
+  padding: 80px 0 72px; text-align: center;
+}
+.page-hero .lead { margin: 16px auto 0; text-align: center; }
+
+/* Steps */
+.steps-section { background: var(--white); }
+
+.step-row {
+  display: grid; grid-template-columns: 80px 1fr 1fr;
+  gap: 48px; align-items: center;
+  padding: 64px 0; border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.step-row:last-child { border-bottom: none; }
+
+.step-num-wrap { text-align: center; }
+
+.step-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  border: 2px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700;
+  color: var(--accent); margin: 0 auto 12px;
+  background: var(--white);
+}
+
+.step-line {
+  width: 1px; height: 60px; background: var(--border);
+  margin: 0 auto;
+}
+
+.step-content h3 { font-size: 1.3rem; margin-bottom: 10px; }
+.step-content p { color: var(--muted); font-size: 0.92rem; line-height: 1.75; margin-bottom: 16px; }
+
+.step-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Step panels */
+.step-panel {
+  background: var(--off); border: 1px solid var(--border);
+  border-radius: 14px; padding: 22px; box-shadow: var(--shadow);
+  font-size: 0.85rem;
+}
+
+.code-block {
+  background: var(--ink); border-radius: 8px;
+  padding: 16px 18px; margin-bottom: 12px;
+  font-family: 'Fragment Mono', monospace; font-size: 0.75rem;
+  line-height: 1.8; color: rgba(255,255,255,0.7);
+  overflow-x: auto;
+}
+
+.code-block .kw { color: #93c5fd; }
+.code-block .fn { color: #6ee7b7; }
+.code-block .st { color: #fca5a5; }
+.code-block .cm { color: rgba(255,255,255,0.3); }
+
+.schema-list { display: flex; flex-direction: column; gap: 8px; }
+.schema-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.schema-icon { font-size: 0.9rem; flex-shrink: 0; }
+.schema-name { font-weight: 600; color: var(--ink); font-size: 0.82rem; flex: 1; }
+.schema-fields { font-size: 0.72rem; color: var(--muted); font-family: 'Fragment Mono', monospace; }
+
+.result-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.result-tile {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 14px;
+}
+.rt-num { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
+.rt-label { font-size: 0.72rem; color: var(--muted); }
+.rt-change { font-size: 0.7rem; font-family: 'Fragment Mono', monospace; }
+.rt-up { color: var(--green); }
+.rt-down { color: #b91c1c; }
+
+.share-row {
+  display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+}
+.share-btn {
+  padding: 6px 13px; border-radius: 7px; font-size: 0.78rem; font-weight: 500;
+  border: 1px solid var(--border); background: var(--white); color: var(--ink2);
+  cursor: pointer; transition: all 0.18s; display: flex; align-items: center; gap: 6px;
+}
+.share-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* FAQ */
+.faq-section { background: var(--off); border-top: 1px solid var(--border); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 52px; }
+.faq-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px 22px;
+}
+.faq-q { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1rem; color: var(--ink); margin-bottom: 10px; }
+.faq-a { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+
+@media(max-width:860px){
+  .step-row { grid-template-columns: 1fr; gap: 24px; }
+  .step-num-wrap { display: none; }
+  .faq-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center">How it Works</div>
+    <h1>From question to insight<br>in seconds</h1>
+    <p class="lead">Four simple steps. No training, no SQL, no waiting for the data team.</p>
+  </div>
+</div>
+
+<section class="steps-section">
+  <div class="container">
+
+    <!-- Step 1 -->
+    <div class="step-row reveal">
+      <div class="step-num-wrap">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="eyebrow">Step one</div>
+        <h3>Connect your data sources</h3>
+        <p>Point Talking 2 Data at your databases, files, or APIs. We auto-discover your schema in seconds — tables, columns, relationships, data types. No manual mapping needed.</p>
+        <div class="step-tags">
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Snowflake</span>
+          <span class="tag">BigQuery</span>
+          <span class="tag">Excel/CSV</span>
+          <span class="tag">REST APIs</span>
+        </div>
+      </div>
+      <div class="step-panel">
+        <div style="font-family:'Fragment Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;">Schema discovered</div>
+        <div class="schema-list">
+          <div class="schema-item">
+            <span class="schema-icon">📋</span>
+            <span class="schema-name">orders</span>
+            <span class="schema-fields">id, customer_id, amount, date, status</span>
+          </div>
+          <div class="schema-item">
+            <span class="schema-icon">👤</span>
+            <span class="schema-name">customers</span>
+            <span class="schema-fields">id, name, email, region, ltv</span>
+          </div>
+          <div class="schema-item">
+            <span class="schema-icon">📦</span>
+            <span class="schema-name">products</span>
+            <span class="schema-fields">id, name, category, price, margin</span>
+          </div>
+          <div class="schema-item">
+            <span class="schema-icon">📊</span>
+            <span class="schema-name">events</span>
+            <span class="schema-fields">id, user_id, event_type, ts</span>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px 13px;background:var(--green-l);border-radius:8px;font-size:0.78rem;color:var(--green);">
+          ✓ 4 tables · 23 columns · relationships mapped
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-row reveal">
+      <div class="step-num-wrap">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="eyebrow">Step two</div>
+        <h3>Ask your question in plain English</h3>
+        <p>Type whatever you want to know, exactly how you'd say it to a colleague. Talking 2 Data understands context, handles ambiguity, and remembers your conversation history for follow-ups.</p>
+        <div class="step-tags">
+          <span class="tag">Conversational memory</span>
+          <span class="tag">Business terminology</span>
+          <span class="tag">Follow-up questions</span>
+        </div>
+      </div>
+      <div class="step-panel">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'Fragment Mono',monospace;font-size:0.78rem;color:var(--ink2);">
+            💬 "Show me revenue by region for Q4 — compare to Q3"
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'Fragment Mono',monospace;font-size:0.78rem;color:var(--muted);">
+            💬 "Now break that down by product category"
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'Fragment Mono',monospace;font-size:0.78rem;color:var(--muted);">
+            💬 "Which customers drove APAC growth?"
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px 13px;background:var(--accent-l);border-radius:8px;font-size:0.78rem;color:var(--accent);">
+          ✦ Each follow-up builds on the previous answer automatically
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-row reveal">
+      <div class="step-num-wrap">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="eyebrow">Step three</div>
+        <h3>AI translates it to an exact query</h3>
+        <p>Under the hood, our model generates optimized SQL or API calls tailored to your schema. You can always see and inspect the generated query — no black boxes. Results are executed securely and returned in milliseconds.</p>
+        <div class="step-tags">
+          <span class="tag">Optimized SQL</span>
+          <span class="tag">Always inspectable</span>
+          <span class="tag">Secure execution</span>
+        </div>
+      </div>
+      <div class="step-panel">
+        <div style="font-family:'Fragment Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">Generated SQL</div>
+        <div class="code-block"><span class="kw">SELECT</span>
+  c.region,
+  <span class="fn">SUM</span>(o.amount) <span class="kw">AS</span> revenue_q4,
+  <span class="fn">LAG</span>(<span class="fn">SUM</span>(o.amount))
+    <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> c.region
+    <span class="kw">ORDER BY</span> quarter) <span class="kw">AS</span> revenue_q3
+<span class="kw">FROM</span> orders o
+<span class="kw">JOIN</span> customers c <span class="kw">ON</span> o.customer_id = c.id
+<span class="kw">WHERE</span> o.date &gt;= <span class="st">'2024-10-01'</span>
+<span class="kw">GROUP BY</span> c.region
+<span class="kw">ORDER BY</span> revenue_q4 <span class="kw">DESC</span>;</div>
+        <div style="padding:10px 13px;background:var(--green-l);border-radius:8px;font-size:0.78rem;color:var(--green);">
+          ✓ Executed in 340ms · 5 rows returned
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-row reveal">
+      <div class="step-num-wrap">
+        <div class="step-num">4</div>
+      </div>
+      <div class="step-content">
+        <div class="eyebrow">Step four</div>
+        <h3>Get instant insights, charts, and answers</h3>
+        <p>Results render as the most appropriate visualization automatically. An AI-written summary highlights what matters — trends, anomalies, and recommended actions. Share with your team in one click.</p>
+        <div class="step-tags">
+          <span class="tag">Auto chart selection</span>
+          <span class="tag">AI summary</span>
+          <span class="tag">One-click sharing</span>
+        </div>
+      </div>
+      <div class="step-panel">
+        <div class="result-tiles">
+          <div class="result-tile">
+            <div class="rt-num">$2.1M</div>
+            <div class="rt-label">North America</div>
+            <div class="rt-change rt-up">↑ +28% vs Q3</div>
+          </div>
+          <div class="result-tile">
+            <div class="rt-num">$1.4M</div>
+            <div class="rt-label">Europe</div>
+            <div class="rt-change rt-up">↑ +12% vs Q3</div>
+          </div>
+          <div class="result-tile">
+            <div class="rt-num">$820K</div>
+            <div class="rt-label">APAC</div>
+            <div class="rt-change rt-up">↑ +41% vs Q3</div>
+          </div>
+          <div class="result-tile">
+            <div class="rt-num">$380K</div>
+            <div class="rt-label">LATAM</div>
+            <div class="rt-change rt-down">↓ -4% vs Q3</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:11px 13px;background:var(--green-l);border-radius:8px;font-size:0.8rem;color:var(--green);line-height:1.55;">
+          ✦ APAC is your fastest-growing region (+41%). LATAM needs attention — first decline in 3 quarters.
+        </div>
+        <div class="share-row">
+          <button class="share-btn">💬 Share to Slack</button>
+          <button class="share-btn">📊 Export to Sheets</button>
+          <button class="share-btn">🔗 Copy link</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="eyebrow">Common questions</div>
+    <h2>Good questions deserve<br>straight answers</h2>
+    <div class="faq-grid">
+      <div class="faq-item reveal">
+        <div class="faq-q">Do I need to know SQL?</div>
+        <div class="faq-a">Not at all. Talking 2 Data is designed for people who know their business, not their database. If you can write an email, you can query your data.</div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:.08s">
+        <div class="faq-q">How does it connect to my database?</div>
+        <div class="faq-a">We use read-only credentials and encrypted connections. Your data never leaves your infrastructure — we run queries on your behalf and return results.</div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:.16s">
+        <div class="faq-q">How accurate are the queries generated?</div>
+        <div class="faq-a">Very high — and getting better daily. You can always inspect the generated SQL, correct it, and the system learns your schema and terminology over time.</div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:.24s">
+        <div class="faq-q">What if my question is ambiguous?</div>
+        <div class="faq-a">Talking 2 Data will either ask a clarifying question or show you the assumptions it made — so you always know what query ran against your data.</div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:.32s">
+        <div class="faq-q">Can it join data from multiple sources?</div>
+        <div class="faq-a">Yes. You can ask questions that span your Postgres sales data and your CSV revenue targets at the same time. We handle the join logic automatically.</div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:.40s">
+        <div class="faq-q">How long does setup take?</div>
+        <div class="faq-a">Most teams are querying their data within 15 minutes of getting access. We auto-discover your schema and you can start asking questions right away.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--white);border-top:1px solid var(--border);text-align:center;padding:96px 0;">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center">Try it yourself</div>
+    <h2>See it in action on your own data</h2>
+    <p class="lead" style="margin:16px auto 36px;text-align:center;">Request early access and we'll set you up with a personalized demo in 24 hours.</p>
+    <a href="contact.html" class="btn btn-primary btn-lg">Get Early Access →</a>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="shared.js"></script>
+</body>
+</html>

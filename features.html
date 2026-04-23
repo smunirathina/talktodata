@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Features — Talking 2 Data</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero {
+  background: var(--off);
+  border-bottom: 1px solid var(--border);
+  padding: 80px 0 72px;
+  text-align: center;
+}
+.page-hero .lead { margin: 16px auto 0; text-align: center; }
+
+/* Feature rows */
+.feature-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  padding: 80px 0; border-bottom: 1px solid var(--border);
+}
+.feature-row:last-child { border-bottom: none; }
+.feature-row.flip { direction: rtl; }
+.feature-row.flip > * { direction: ltr; }
+
+.feature-text .eyebrow { margin-bottom: 12px; }
+.feature-text h2 { font-size: clamp(1.6rem,2.5vw,2.2rem); margin-bottom: 14px; }
+.feature-text p { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.75; }
+
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.feature-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 0.9rem; color: var(--ink2);
+}
+.feature-list li::before {
+  content: '✓'; color: var(--green); font-weight: 700;
+  font-size: 0.8rem; margin-top: 3px; flex-shrink: 0;
+}
+
+/* Feature visual panels */
+.feature-panel {
+  background: var(--off); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.panel-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 8px;
+  margin-bottom: 10px; font-size: 0.85rem;
+}
+.panel-row:last-child { margin-bottom: 0; }
+.panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.panel-label { color: var(--muted); font-size: 0.78rem; font-family:'Fragment Mono',monospace; flex:1; }
+.panel-val { font-weight: 600; color: var(--ink); font-size: 0.88rem; }
+.panel-change { font-size: 0.75rem; padding: 2px 8px; border-radius: 100px; font-family:'Fragment Mono',monospace; }
+.up { background: var(--green-l); color: var(--green); }
+.down { background: #fef2f2; color: #b91c1c; }
+
+/* source grid */
+.source-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+}
+.source-tile {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 12px;
+  text-align: center; font-size: 0.78rem; color: var(--muted);
+  transition: all 0.18s;
+}
+.source-tile:hover { border-color: var(--accent); color: var(--accent); }
+.source-tile .si { font-size: 1.5rem; display: block; margin-bottom: 6px; }
+
+/* permission table */
+.perm-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.perm-table th {
+  background: var(--off2); padding: 8px 12px;
+  font-family: 'Fragment Mono',monospace; font-size: 0.65rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); text-align: left; font-weight: 400;
+}
+.perm-table td { padding: 9px 12px; border-top: 1px solid var(--border); color: var(--ink2); }
+.perm-table td:first-child { font-weight: 500; color: var(--ink); }
+.check-y { color: var(--green); }
+.check-n { color: var(--faint); }
+
+/* integrations */
+.int-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+.int-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px; font-size: 0.85rem;
+}
+.int-icon { font-size: 1.4rem; flex-shrink: 0; }
+.int-name { font-weight: 600; color: var(--ink); font-size: 0.85rem; }
+.int-desc { font-size: 0.75rem; color: var(--muted); }
+
+/* capability strip */
+.caps {
+  background: var(--ink); padding: 64px 0;
+}
+.caps-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 6%;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 2px;
+}
+.cap-item {
+  padding: 32px 24px; border-right: 1px solid rgba(255,255,255,0.07);
+  text-align: center;
+}
+.cap-item:last-child { border-right: none; }
+.cap-num {
+  font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 700;
+  letter-spacing: -0.04em; color: #fff; display: block; margin-bottom: 6px;
+}
+.cap-label { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+
+@media(max-width:860px) {
+  .feature-row, .feature-row.flip { grid-template-columns:1fr; direction:ltr; gap:36px; }
+  .caps-inner { grid-template-columns: repeat(2,1fr); }
+  .source-grid { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center">Features</div>
+    <h1>Built for the way<br>teams actually work</h1>
+    <p class="lead">Everything from natural language querying to enterprise security — in one clean interface.</p>
+  </div>
+</div>
+
+<!-- CAPABILITY NUMBERS -->
+<div class="caps">
+  <div class="caps-inner">
+    <div class="cap-item reveal">
+      <span class="cap-num">10+</span>
+      <span class="cap-label">Data sources</span>
+    </div>
+    <div class="cap-item reveal" style="transition-delay:.1s">
+      <span class="cap-num">&lt;2s</span>
+      <span class="cap-label">Avg response time</span>
+    </div>
+    <div class="cap-item reveal" style="transition-delay:.2s">
+      <span class="cap-num">6</span>
+      <span class="cap-label">Chart types auto-selected</span>
+    </div>
+    <div class="cap-item reveal" style="transition-delay:.3s">
+      <span class="cap-num">0</span>
+      <span class="cap-label">SQL required</span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURE ROWS -->
+<section>
+  <div class="container">
+
+    <!-- NL Queries -->
+    <div class="feature-row reveal">
+      <div class="feature-text">
+        <div class="eyebrow">Core capability</div>
+        <h2>Ask in plain English, get exact answers</h2>
+        <p>Type your question naturally. Talking 2 Data understands intent, handles ambiguity, and generates the right query against your schema — whether it's SQL, an API call, or a file lookup.</p>
+        <ul class="feature-list">
+          <li>Understands business terminology, not just column names</li>
+          <li>Handles follow-up questions with conversational memory</li>
+          <li>Supports date ranges, filters, aggregations, and comparisons</li>
+          <li>Shows generated SQL so you stay in control</li>
+        </ul>
+      </div>
+      <div class="feature-panel">
+        <div class="panel-row">
+          <span class="panel-dot" style="background:var(--accent)"></span>
+          <span class="panel-label">QUERY</span>
+          <span style="font-family:'Fragment Mono',monospace;font-size:0.78rem;color:var(--ink2)">Top 5 customers by LTV this year</span>
+        </div>
+        <div style="height:12px"></div>
+        <div class="panel-row"><div class="panel-dot" style="background:#f59e0b"></div><div class="panel-label">Acme Corp</div><div class="panel-val">$284,000</div><span class="panel-change up">+18%</span></div>
+        <div class="panel-row"><div class="panel-dot" style="background:#60a5fa"></div><div class="panel-label">Globex Ltd</div><div class="panel-val">$231,500</div><span class="panel-change up">+9%</span></div>
+        <div class="panel-row"><div class="panel-dot" style="background:#34d399"></div><div class="panel-label">Initech</div><div class="panel-val">$198,200</div><span class="panel-change down">-3%</span></div>
+        <div class="panel-row"><div class="panel-dot" style="background:#a78bfa"></div><div class="panel-label">Umbrella Inc</div><div class="panel-val">$174,800</div><span class="panel-change up">+22%</span></div>
+        <div class="panel-row"><div class="panel-dot" style="background:#f87171"></div><div class="panel-label">Stark Industries</div><div class="panel-val">$156,300</div><span class="panel-change up">+5%</span></div>
+        <div style="margin-top:14px;padding:12px;background:var(--green-l);border-radius:8px;font-size:0.8rem;color:var(--green)">✦ Acme Corp grew fastest at +18%. Initech is at risk — follow up recommended.</div>
+      </div>
+    </div>
+
+    <!-- Multi-source -->
+    <div class="feature-row flip reveal">
+      <div class="feature-text">
+        <div class="eyebrow">Connectivity</div>
+        <h2>One interface for all your data sources</h2>
+        <p>Connect to any combination of databases, warehouses, spreadsheets, and APIs. Ask questions that span multiple sources simultaneously — Talking 2 Data handles the joins invisibly.</p>
+        <ul class="feature-list">
+          <li>PostgreSQL, MySQL, SQLite, SQL Server</li>
+          <li>Snowflake, BigQuery, Redshift, Databricks</li>
+          <li>Excel, CSV, Google Sheets</li>
+          <li>REST APIs and webhooks</li>
+          <li>MongoDB and document stores</li>
+        </ul>
+      </div>
+      <div class="feature-panel">
+        <div class="source-grid">
+          <div class="source-tile"><span class="si">🐘</span>PostgreSQL</div>
+          <div class="source-tile"><span class="si">❄️</span>Snowflake</div>
+          <div class="source-tile"><span class="si">🔷</span>BigQuery</div>
+          <div class="source-tile"><span class="si">🟠</span>Redshift</div>
+          <div class="source-tile"><span class="si">🔴</span>MySQL</div>
+          <div class="source-tile"><span class="si">📊</span>Excel/CSV</div>
+          <div class="source-tile"><span class="si">🟢</span>MongoDB</div>
+          <div class="source-tile"><span class="si">📡</span>REST API</div>
+          <div class="source-tile" style="border-style:dashed;color:var(--faint)"><span class="si">＋</span>More</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Access Control -->
+    <div class="feature-row reveal">
+      <div class="feature-text">
+        <div class="eyebrow">Security</div>
+        <h2>Role-based access that actually works</h2>
+        <p>Define exactly who can query what. Talking 2 Data enforces row-level, column-level, and source-level permissions — so your HR data stays with HR and your finance data stays with finance.</p>
+        <ul class="feature-list">
+          <li>Row-level and column-level security</li>
+          <li>SSO / SAML 2.0 for enterprise teams</li>
+          <li>Full audit log of every query run</li>
+          <li>Sensitive field masking and redaction</li>
+        </ul>
+      </div>
+      <div class="feature-panel">
+        <table class="perm-table">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Sales DB</th>
+              <th>HR Data</th>
+              <th>Finance</th>
+              <th>Export</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Admin</td><td class="check-y">✓</td><td class="check-y">✓</td><td class="check-y">✓</td><td class="check-y">✓</td></tr>
+            <tr><td>Sales Lead</td><td class="check-y">✓</td><td class="check-n">—</td><td class="check-n">—</td><td class="check-y">✓</td></tr>
+            <tr><td>Analyst</td><td class="check-y">✓</td><td class="check-n">—</td><td class="check-y">✓</td><td class="check-y">✓</td></tr>
+            <tr><td>Viewer</td><td class="check-y">✓</td><td class="check-n">—</td><td class="check-n">—</td><td class="check-n">—</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:14px;padding:11px 14px;background:var(--accent-l);border-radius:8px;font-size:0.8rem;color:var(--accent)">
+          🔒 All queries are logged with user, timestamp, and result metadata.
+        </div>
+      </div>
+    </div>
+
+    <!-- Integrations -->
+    <div class="feature-row flip reveal">
+      <div class="feature-text">
+        <div class="eyebrow">Integrations</div>
+        <h2>Fits into your existing workflow</h2>
+        <p>Talking 2 Data integrates with the tools your team already uses — so insights flow where decisions get made, not just inside another dashboard.</p>
+        <ul class="feature-list">
+          <li>Share charts directly to Slack channels</li>
+          <li>Embed live query results in Notion pages</li>
+          <li>Schedule email digests to stakeholders</li>
+          <li>Export to Google Sheets or Excel with one click</li>
+        </ul>
+      </div>
+      <div class="feature-panel">
+        <div class="int-grid">
+          <div class="int-card"><span class="int-icon">💬</span><div><div class="int-name">Slack</div><div class="int-desc">Share charts instantly</div></div></div>
+          <div class="int-card"><span class="int-icon">📝</span><div><div class="int-name">Notion</div><div class="int-desc">Embed live results</div></div></div>
+          <div class="int-card"><span class="int-icon">📊</span><div><div class="int-name">Google Sheets</div><div class="int-desc">One-click export</div></div></div>
+          <div class="int-card"><span class="int-icon">✉️</span><div><div class="int-name">Email Digest</div><div class="int-desc">Scheduled reports</div></div></div>
+          <div class="int-card"><span class="int-icon">🔗</span><div><div class="int-name">REST API</div><div class="int-desc">Build on top of us</div></div></div>
+          <div class="int-card" style="border-style:dashed;opacity:0.5"><span class="int-icon">＋</span><div><div class="int-name">Coming soon</div><div class="int-desc">More integrations</div></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--off);border-top:1px solid var(--border);text-align:center;padding:96px 0;">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center">Get started</div>
+    <h2>See all these features in action</h2>
+    <p class="lead" style="margin:16px auto 36px;text-align:center;">Request early access and we'll set up a live demo tailored to your data.</p>
+    <a href="contact.html" class="btn btn-primary btn-lg">Request a Demo →</a>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="shared.js"></script>
+</body>
+</html>
